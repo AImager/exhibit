@@ -1,0 +1,110 @@
+---
+layout: default
+---
+
+{% assign category = page.title %}
+
+<div id="head">
+  <div id="title">{{ page.title }}</div>
+  <div id="status">
+	<span class="status" id="status_all"><i>全部</i></span>
+	{% for status in site.status %}
+	<span class="status" id="{{ status }}"><i>{{ status }}</i></span>
+	{% endfor %}
+    <!-- <span class="statu" id="book_all"><i>全部</i></span>
+    <span class="statu" id="book_has_read"><i>读过</i></span>
+    <span class="statu" id="book_want_read"><i>想读</i></span> -->
+  </div>
+</div>
+
+<div id="exhibit_items">
+  {% for post in site.exhibit %}
+  <!-- {{ post.category }} -->
+  {% if post.category == category %}
+  <div class="exhibit_item {{ post.status }}">
+    <div class="exhibit_info">
+      <p class="exhibit_title">{% if post.source_url.size > 1 %}<a class="source_url" href="{{ post.source_url }}">{% endif %}{{ post.title }}{% if post.source_url.size > 1 %}</a>{% endif %}</p>
+	  {% for attr in site.exhibit_attrs %}
+	  <p class="{{ attr.index }}">{{ attr.prefix }}: 
+		  {% if post[attr.index][0] == null %}
+		  	{{ post[attr.index] }}
+		  {% elsif attr.type == 'normal' %}
+		  	{% for attr_item in post[attr.index] %}
+				{{ attr_item }}
+			{% endfor %}
+		  {% elsif post[attr.index].size > 1  %}
+		    {{ post[attr.index][0] }}
+		    ~
+		  {% else %}
+		  	{{ post[attr.index][0] }}
+		  {% endif %}</p>
+	  {% endfor %}
+      <!-- <p class="author">作者: {{ post.author[0] }}{% if post.author.size > 1 %} ~{% endif %}</p>
+      <p class="publish_company">出版社: {% if post.publish_company[0].size > 1 %}{{ post.publish_company[0] }}{% else %}{{ post.publish_company }}{% endif %}</p>
+      <p class="publish_date">发行: {{ post.publish_date }} | {% if post.publish_version.size > 1 %}{{ post.publish_version }}{% else %}第1版{% endif %}</p>
+      <p class="tag">标签: {% for tag in post.tag %}{{ tag }}  {% endfor %}</p> -->
+    </div>
+    <img class="img" src="{{ post.img_url }}">
+    <div class="clearboth"></div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+
+<script>
+  var getAll = function(){
+    var node = document.querySelectorAll(".exhibit_item");
+	console.log("test");
+    for(var i=0;i<node.length;i++){
+      node[i].style.display="";
+    }
+  }
+  
+  document.getElementById("status_all").addEventListener("click", getAll);
+  
+  site_status = "{{ site.status | join: ',' }}";
+  site_status = site_status.split(",");
+  
+  for(var i=0;i<site_status.length;i++) {
+	  document.getElementById(site_status[i]).addEventListener("click", function() {
+		  getAll();
+		  console.log(this.id);
+		  var node = document.querySelectorAll("." + this.id);
+		  for(var j=0;j<node.length;j++){
+		    node[j].style.display="none";
+		  }
+	  });
+  }
+  
+  {% assign index = 0 %}
+  {% for item in exhibit_attrs %}
+  arr[{{ index }}].index = item.index;
+  arr[{{ index }}].prefix = item.prefix;
+  {% assign index = index | plus: 1 %}
+  {% endfor %}
+  
+  // for(var i = 0;i < arr.length; i++) {
+  //  document.querySelectorAll(arr[i].index);
+  // }
+  
+  // var getHaveRead = function(){
+  //   getAll();
+  //   var node = document.querySelectorAll(".想读");
+  //   for(var i=0;i<node.length;i++){
+  //     node[i].style.display="none";
+  //   }
+  // }
+  // 
+  // var getWantRead = function(){
+  //   getAll();
+  //   var node = document.querySelectorAll(".读过");
+  //   for(var i=0;i<node.length;i++){
+  //     node[i].style.display="none";
+  //   }
+  // }
+  // document.getElementById("book_all").addEventListener("click", getAll);
+  // document.getElementById("book_has_read").addEventListener("click", getHaveRead);
+  // document.getElementById("book_want_read").addEventListener("click", getWantRead);
+  
+  
+</script>
