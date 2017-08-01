@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AImager
+title: home
 permalink: /index.html
 ---
 
