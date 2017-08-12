@@ -60,6 +60,14 @@ layout: default
     }
   }
   
+  var hideAll = function(){
+    var node = document.querySelectorAll(".exhibit_item");
+	console.log("test");
+    for(var i=0;i<node.length;i++){
+      node[i].style.display="none";
+    }
+  }
+  
   document.getElementById("status_all").addEventListener("click", getAll);
   
   site_status = "{{ site.status | join: ',' }}";
@@ -67,11 +75,11 @@ layout: default
   
   for(var i=0;i<site_status.length;i++) {
 	  document.getElementById(site_status[i]).addEventListener("click", function() {
-		  getAll();
+		  hideAll();
 		  console.log(this.id);
 		  var node = document.querySelectorAll("." + this.id);
 		  for(var j=0;j<node.length;j++){
-		    node[j].style.display="none";
+		    node[j].style.display="";
 		  }
 	  });
   }
