@@ -16,16 +16,16 @@ permalink: /index.html
 {% for category in categories %}
 
   <p><a href="/category/{{ category.name }}.html" class="category">{{ category.name }}</a></p>
-  
+
   {% assign tagstring = '' %}
-  
+
   {% for exhibit_item in site.exhibit %}
   	{% if exhibit_item.category == category.name %}
 		{% assign temptagstring = exhibit_item.tags | join: "," %}
 		{% capture tagstring %}{{ tagstring }},{{ temptagstring }}{% endcapture %}
 	{% endif %}
   {% endfor %}
-  
+
   {% assign uniq_tags = tagstring | remove_first: "," | split: "," | uniq %}
 
   <div class="home_tag_div">

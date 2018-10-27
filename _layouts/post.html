@@ -25,7 +25,7 @@ layout: default
     <div class="exhibit_info">
       <p class="exhibit_title">{% if post.source_url.size > 1 %}<a class="source_url" href="{{ post.source_url }}">{% endif %}{{ post.title }}{% if post.source_url.size > 1 %}</a>{% endif %}</p>
 	  {% for attr in site.exhibit_attrs %}
-	  <p class="{{ attr.index }}">{{ attr.prefix }}: 
+	  <p class="{{ attr.index }}">{{ attr.prefix }}:
 		  {% if post[attr.index][0] == null %}
 		  	{{ post[attr.index] }}
 		  {% elsif attr.type == 'normal' %}
@@ -59,7 +59,7 @@ layout: default
       node[i].style.display="";
     }
   }
-  
+
   var hideAll = function(){
     var node = document.querySelectorAll(".exhibit_item");
 	console.log("test");
@@ -67,12 +67,12 @@ layout: default
       node[i].style.display="none";
     }
   }
-  
+
   document.getElementById("status_all").addEventListener("click", getAll);
-  
+
   site_status = "{{ site.status | join: ',' }}";
   site_status = site_status.split(",");
-  
+
   for(var i=0;i<site_status.length;i++) {
 	  document.getElementById(site_status[i]).addEventListener("click", function() {
 		  hideAll();
@@ -83,18 +83,18 @@ layout: default
 		  }
 	  });
   }
-  
+
   {% assign index = 0 %}
   {% for item in exhibit_attrs %}
   arr[{{ index }}].index = item.index;
   arr[{{ index }}].prefix = item.prefix;
   {% assign index = index | plus: 1 %}
   {% endfor %}
-  
+
   // for(var i = 0;i < arr.length; i++) {
   //  document.querySelectorAll(arr[i].index);
   // }
-  
+
   // var getHaveRead = function(){
   //   getAll();
   //   var node = document.querySelectorAll(".想读");
@@ -102,7 +102,7 @@ layout: default
   //     node[i].style.display="none";
   //   }
   // }
-  // 
+  //
   // var getWantRead = function(){
   //   getAll();
   //   var node = document.querySelectorAll(".读过");
@@ -113,6 +113,6 @@ layout: default
   // document.getElementById("book_all").addEventListener("click", getAll);
   // document.getElementById("book_has_read").addEventListener("click", getHaveRead);
   // document.getElementById("book_want_read").addEventListener("click", getWantRead);
-  
-  
+
+
 </script>
