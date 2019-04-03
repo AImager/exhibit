@@ -1,0 +1,48 @@
+---
+layout: default
+---
+
+{% assign category = page.title %}
+
+<div id="head">
+    <div id="title">{{ page.title }}</div>
+    <div id="status">
+        <span id="status_all"><i>全部</i></span>
+        {% for status in site.status %}
+        <span class="status_item" id="{{ status }}"><i>{{ status }}</i></span>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="exhibit_items">
+    {% for post in site.exhibit %}
+    {% if post.category == category %}
+    <div class="exhibit_item {{ post.status }}">
+        <div class="exhibit_info">
+            <p class="exhibit_title">{% if post.source_url.size > 1 %}<a class="source_url"
+                    href="{{ post.source_url }}">{% endif %}{{ post.title }}{% if post.source_url.size > 1 %}</a>{% endif %}
+            </p>
+            {% for attr in site.exhibit_attrs %}
+            <p class="{{ attr.index }}">{{ attr.prefix }}:
+                {% if post[attr.index][0] == null %}
+                {{ post[attr.index] }}
+                {% elsif attr.type == 'normal' %}
+                {% for attr_item in post[attr.index] %}
+                {{ attr_item }}
+                {% endfor %}
+                {% elsif post[attr.index].size > 1  %}
+                {{ post[attr.index][0] }}
+                ~
+                {% else %}
+                {{ post[attr.index][0] }}
+                {% endif %}</p>
+            {% endfor %}
+        </div>
+        <img class="img" src="{{ post.img_url }}">
+        <div class="clearboth"></div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<script src="/{{ site.theme_dir }}/{{ site.theme_name }}/js/post.js"></script>

@@ -1,0 +1,17 @@
+<head>
+    <link rel="stylesheet" href="/{{ site.theme_dir }}/{{ site.theme_name }}/css/styles.css">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0; width=device-width" />
+    {% if site.google-site-verfication %}
+    <meta name="google-site-verification" content="{{ site.google-site-verfication }}" />
+    {% endif %}
+    {% if site.baidu-site-verfication %}
+    <meta name="baidu-site-verification" content="{{ site.baidu-site-verfication }}" />
+    {% endif %}
+
+    {% if page.category == null %}
+    <title>{{ page.title }}</title>
+    {% else %}
+    <title>{{ page.category }}</title>
+    {% endif %}
+</head>

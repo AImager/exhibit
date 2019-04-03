@@ -1,0 +1,7 @@
+<footer>
+    <div id="footer">
+        {% assign first_post = site.posts | last %} &copy; {{ first_post.date | date: "%Y" }} ~
+        {{ site.time | date: "%Y" }} {{ site.author }} | <a href='/' title='home'>home</a>
+        {% if site.footer %} | {{ site.footer }} {% endif %}
+    </div>
+</footer>
